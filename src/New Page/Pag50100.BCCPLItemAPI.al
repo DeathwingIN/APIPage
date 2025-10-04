@@ -1,6 +1,6 @@
 page 50100 "BC CPL Item API"
 {
-    APIGroup = 'essentials';
+    APIGroup = 'app1';
     APIPublisher = 'ImeshNirmal';
     APIVersion = 'v1.0';
     ApplicationArea = All;
@@ -11,6 +11,10 @@ page 50100 "BC CPL Item API"
     PageType = API;
     SourceTable = Item;
 
+    // ODataKeyFields allows clients to request a specific record, e.g., /items(1996-S)
+    // We use SystemId because it is a unique, immutable GUID for every record
+    //ODataKeyFields = SystemId;
+
 
     // In the layout section, you define which fields from the SourceTable you want to expose.
     layout
@@ -19,18 +23,27 @@ page 50100 "BC CPL Item API"
         {
             repeater(General)
             {
-                // We are exposing four fields here: Item No., Description, Base Unit of Measure, and Type.
+                // field(id; Rec.SystemId)
+                // {
+                //     Caption = 'System ID';
+                //     Editable = false;
+                // }
                 field("no"; Rec."No.")
                 {
+                    Caption = 'Item Number';
+                    Editable = false;
                 }
                 field("description"; Rec.Description)
                 {
+                    Caption = 'Description';
                 }
                 field("baseUnitOfMeasure"; Rec."Base Unit of Measure")
                 {
+                    Caption = 'Base Unit of Measure';
                 }
-                field("type"; Rec.Type)
+                field(unitPrice; Rec."Unit Price")
                 {
+                    Caption = 'Unit Price';
                 }
             }
         }
