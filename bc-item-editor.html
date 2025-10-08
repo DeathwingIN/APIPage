@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BC Item Editor (simple)</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    label { display:block; margin-top:12px; font-weight:600 }
+    input[type=text], input[type=number], textarea { width:100%; padding:8px; box-sizing:border-box }
+    button { margin-top:12px; padding:8px 12px }
+    pre { background:#f5f5f5; padding:12px; overflow:auto }
+    .row { display:flex; gap:8px }
+    .col { flex:1 }
+    .notice { background:#ffffe0; border:1px solid #ffecb3; padding:8px; margin-top:12px }
+  </style>
+</head>
+<body>
+  <h1>Business Central — Item Editor </h1>
+  <p>A tiny browser UI to GET and PATCH an item using your custom API page. This demo shows how to read the <code>@odata.etag</code> and use it in <code>If-Match</code>.</p>
+
+  <label>API Base URL</label>
+  <input id="baseUrl" type="text" value="https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0" />
+
+  <div class="row">
+    <div class="col">
+      <label>Company ID</label>
+      <input id="companyId" type="text" value="162915c7-5408-f011-9af6-6045bde9c6b1" />
+    </div>
+    <div class="col">
+      <label>Item SystemId (id)</label>
+      <input id="itemId" type="text" value="11f0b0fa-5408-f011-9af6-6045bde9c6b1" />
+    </div>
+  </div>
+
+  <label>Access token (Bearer)</label>
+  <textarea id="token" rows="2" placeholder="Paste your access token here (no 'Bearer ' prefix needed)" ></textarea>
+
+  <div style="margin-top:8px">
+    <button id="btnLoad">Load item (GET)</button>
+    <button id="btnSave">Save changes (PATCH)</button>
+    <button id="btnDelete">DELETE item</button>
+  </div>
+
+  <div class="notice">
+    <strong>Field notes:</strong> The API page exposes <code>description</code>, <code>baseUnitOfMeasure</code>, and <code>unitPrice</code>. Do not edit <code>id</code> or <code>no</code> here — they are read-only.
+  </div>
+
+  <label>ETag (fetched from GET, shown for debugging)</label>
+  <input id="etag" type="text" readonly />
+
+  <label>Item JSON (read-only)</label>
+  <pre id="raw"></pre>
+
+  <label>Edit: Description</label>
+  <input id="description" type="text" />
+
+  <label>Edit: Base Unit of Measure</label>
+  <input id="baseUnitOfMeasure" type="text" />
+
+  <label>Edit: Unit Price</label>
+  <input id="unitPrice" type="number" step="0.01" />
+
+  <div id="status" style="margin-top:12px;color:#004085"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  function setStatus(msg, isError) {
+    const s = $('status'); s.textContent = msg || '';
+    s.style.color = isError ? '#b21f2d' : '#004085';
+  }
+
+  function buildItemUrl() {
+    const base = $('baseUrl').value.replace(/\/$/, '');
+    const company = $('companyId').value.trim();
+    const itemId = $('itemId').value.trim();
+    return `${base}/companies(${company})/items(${itemId})`;
+  }
+
+  async function doGet() {
+    setStatus('Loading item...');
+    $('raw').textContent = '';
+    try {
+      const url = buildItemUrl();
+      const token = $('token').value.trim();
+      if (!token) { setStatus('Missing token', true); return; }
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } });
+      if (!res.ok) {
+        const text = await res.text();
+        setStatus(`GET failed: ${res.status} ${res.statusText} - ${text}`, true);
+        return;
+      }
+      const body = await res.json();
+      // ETAG is usually in @odata.etag in body
+      const etag = body['@odata.etag'] || res.headers.get('ETag') || res.headers.get('etag');
+      $('etag').value = etag || '';
+      $('raw').textContent = JSON.stringify(body, null, 2);
+      // populate fields if present
+      $('description').value = body.description || '';
+      $('baseUnitOfMeasure').value = body.baseUnitOfMeasure || '';
+      $('unitPrice').value = body.unitPrice != null ? body.unitPrice : '';
+      setStatus('Item loaded');
+    } catch (e) {
+      setStatus('GET error: ' + e.message, true);
+    }
+  }
+
+  async function doPatch() {
+    setStatus('Patching...');
+    try {
+      const url = buildItemUrl();
+      const token = $('token').value.trim();
+      if (!token) { setStatus('Missing token', true); return; }
+      let etag = $('etag').value.trim();
+      if (!etag) {
+        // optional: prompt user
+        if (!confirm('No ETag available. Use If-Match: * (force update)?')) { setStatus('Cancelled by user'); return; }
+        etag = '*';
+      }
+      const patchBody = {};
+      patchBody.description = $('description').value;
+      patchBody.baseUnitOfMeasure = $('baseUnitOfMeasure').value;
+      const up = $('unitPrice').value;
+      if (up !== '') patchBody.unitPrice = parseFloat(up);
+
+      const res = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'If-Match': etag,
+          Accept: 'application/json'
+        },
+        body: JSON.stringify(patchBody)
+      });
+
+      const text = await res.text();
+      if (res.ok) {
+        // server often returns updated object
+        let body = null;
+        try { body = JSON.parse(text); } catch(e) { }
+        if (body && body['@odata.etag']) { $('etag').value = body['@odata.etag']; }
+        $('raw').textContent = body ? JSON.stringify(body, null, 2) : text;
+        setStatus('PATCH succeeded');
+      } else {
+        // show detailed error
+        setStatus(`PATCH failed: ${res.status} ${res.statusText}` , true);
+        // show body
+        $('raw').textContent = text;
+        // detect concurrency error
+        try {
+          const errJson = JSON.parse(text);
+          if (errJson && errJson.error && errJson.error.code === 'Request_EntityChanged') {
+            alert('Conflict: record changed by someone else. Please press Load to fetch latest values and retry.');
+          }
+        } catch(e) {
+          // ignore
+        }
+      }
+    } catch (e) {
+      setStatus('PATCH error: ' + e.message, true);
+    }
+  }
+
+  async function doDelete() {
+    if (!confirm('Delete this item? This cannot be undone (unless restored in BC).')) return;
+    setStatus('Deleting...');
+    try {
+      const url = buildItemUrl();
+      const token = $('token').value.trim();
+      let etag = $('etag').value.trim();
+      if (!etag) {
+        if (!confirm('No ETag available. Use If-Match: * (force delete)?')) { setStatus('Cancelled'); return; }
+        etag = '*';
+      }
+      const res = await fetch(url, { method: 'DELETE', headers: { Authorization: `Bearer ${token}`, 'If-Match': etag } });
+      if (res.ok) {
+        setStatus('DELETE succeeded');
+        $('raw').textContent = '';
+      } else {
+        const txt = await res.text();
+        setStatus(`DELETE failed: ${res.status} ${res.statusText}`, true);
+        $('raw').textContent = txt;
+      }
+    } catch (e) {
+      setStatus('DELETE error: ' + e.message, true);
+    }
+  }
+
+  $('btnLoad').addEventListener('click', doGet);
+  $('btnSave').addEventListener('click', doPatch);
+  $('btnDelete').addEventListener('click', doDelete);
+</script>
+</body>
+</html>

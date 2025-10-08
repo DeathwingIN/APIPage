@@ -13,7 +13,7 @@ page 50100 "BC CPL Item API"
 
     // ODataKeyFields allows clients to request a specific record, e.g., /items(1996-S)
     // We use SystemId because it is a unique, immutable GUID for every record
-    //ODataKeyFields = SystemId;
+    ODataKeyFields = SystemId;
 
 
     // In the layout section, you define which fields from the SourceTable you want to expose.
@@ -23,11 +23,11 @@ page 50100 "BC CPL Item API"
         {
             repeater(General)
             {
-                // field(id; Rec.SystemId)
-                // {
-                //     Caption = 'System ID';
-                //     Editable = false;
-                // }
+                field(id; Rec.SystemId)
+                {
+                    Caption = 'System ID';
+                    Editable = false;
+                }
                 field("no"; Rec."No.")
                 {
                     Caption = 'Item Number';
