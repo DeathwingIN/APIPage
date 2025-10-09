@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "9092f2c1-67e6-41f0-9075-08da8e886d72",
+		"name": "BC Items API Page",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34489462",
+		"_collection_link": "https://www.postman.com/universal-shadow-401572/workspace/project-development/collection/34489462-9092f2c1-67e6-41f0-9075-08da8e886d72?action=share&source=collection_link&creator=34489462"
+	},
+	"item": [
+		{
+			"name": "Get Items",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "https://api.businesscentral.dynamics.com/.default",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.microsoftonline.com/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/oauth2/v2.0/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Business Central Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0/companies(162915c7-5408-f011-9af6-6045bde9c6b1)/items",
+					"protocol": "https",
+					"host": [
+						"api",
+						"businesscentral",
+						"dynamics",
+						"com"
+					],
+					"path": [
+						"v2.0",
+						"23a0c336-e5f0-4bbc-90b2-2899179cbbb5",
+						"ImeshSand",
+						"api",
+						"ImeshNirmal",
+						"app1",
+						"v1.0",
+						"companies(162915c7-5408-f011-9af6-6045bde9c6b1)",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Item",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "https://api.businesscentral.dynamics.com/.default",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.microsoftonline.com/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/oauth2/v2.0/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Business Central Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0/companies(162915c7-5408-f011-9af6-6045bde9c6b1)/items(9bc6b09e-62a4-f011-bbd0-7c1e52805fae)",
+					"protocol": "https",
+					"host": [
+						"api",
+						"businesscentral",
+						"dynamics",
+						"com"
+					],
+					"path": [
+						"v2.0",
+						"23a0c336-e5f0-4bbc-90b2-2899179cbbb5",
+						"ImeshSand",
+						"api",
+						"ImeshNirmal",
+						"app1",
+						"v1.0",
+						"companies(162915c7-5408-f011-9af6-6045bde9c6b1)",
+						"items(9bc6b09e-62a4-f011-bbd0-7c1e52805fae)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "https://api.businesscentral.dynamics.com/.default",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.microsoftonline.com/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/oauth2/v2.0/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Business Central Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "If-Match",
+						"value": "W/\"JzE5Ozc4MDM4NzcyMzU4NjUzODU5ODUxOzAwOyc=\"",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkhTMjNiN0RvN1RjYVUxUm9MSHdwSXEyNFZZZyIsImtpZCI6IkhTMjNiN0RvN1RjYVUxUm9MSHdwSXEyNFZZZyJ9.eyJhdWQiOiJodHRwczovL2FwaS5idXNpbmVzc2NlbnRyYWwuZHluYW1pY3MuY29tIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMjNhMGMzMzYtZTVmMC00YmJjLTkwYjItMjg5OTE3OWNiYmI1LyIsImlhdCI6MTc1OTkzNjgzMiwibmJmIjoxNzU5OTM2ODMyLCJleHAiOjE3NTk5NDA3MzIsImFpbyI6ImsySmdZR2paa0syc2tMWFJ0U1BwMWgrcEhiM0xBQT09IiwiYXBwaWQiOiI4YWM3M2M4Ni1hYmY1LTRkOWEtYjAyZi0yMzYxYjYxNThiMDUiLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC8yM2EwYzMzNi1lNWYwLTRiYmMtOTBiMi0yODk5MTc5Y2JiYjUvIiwiaWR0eXAiOiJhcHAiLCJvaWQiOiJhYzY0ZGJmYS1iYzAyLTQ5ZTktODk3ZS1jZDhmZDdiZDdhNjciLCJyaCI6IjEuQWIwQU5zT2dJX0RsdkV1UXNpaVpGNXk3dFQzdmJabHNzMU5CaGdlbV9Ud0J1SjlyQVFDOUFBLiIsInJvbGVzIjpbIkF1dG9tYXRpb24uUmVhZFdyaXRlLkFsbCIsImFwcF9hY2Nlc3MiLCJBZG1pbkNlbnRlci5SZWFkV3JpdGUuQWxsIiwiQVBJLlJlYWRXcml0ZS5BbGwiXSwic3ViIjoiYWM2NGRiZmEtYmMwMi00OWU5LTg5N2UtY2Q4ZmQ3YmQ3YTY3IiwidGlkIjoiMjNhMGMzMzYtZTVmMC00YmJjLTkwYjItMjg5OTE3OWNiYmI1IiwidXRpIjoiT0IxOWhHWk9Fa2lRRjcyRl9RRlBBQSIsInZlciI6IjEuMCIsInhtc19mdGQiOiJEU1VzZzZCS3paOU1Oa3lDdkJNVGxxWTNSTkQycTJBaHVXVnVUY0JaWGU4QmRYTmxZWE4wTFdSemJYTSIsInhtc19pZHJlbCI6IjcgMTgiLCJ4bXNfcmQiOiIwLjQyTGpZQkppMnNzb0pNTEJMaVNRZmpkNUpVZDZoX01ta2VlQk1oT19UUWFLY2dvSjdQZF9WVk1TODk2emM5dm1Md0VXM0stQm9oeENBcmJ2YzJmbWJBNTJiR05mOXRlR2NjZDhBQSJ9.PaSUKgltgvLkCR0HP8ZGYDUikHiJ73yuOEMogVyiu1p3IUKMnjn5eG_7p-8N90pF0zOi1YDLV83K4elcdI4T8CTQRAMZ0crUo8a_3Jp-Y5YYQbW2NyTXKcgC8zGyzmrADTfWs8nvS4UMhwUheSzZ729zQhhaID5mMrKLtHVnD6BbGq0i2fjBnorAeM2zWDSqPfZ9EfRmQinMW39qacXuAHcN545ebuBwPjSsFL0G3rEmQMJqd4UZY-7ba2BbGyZGQ6U7bEerob4WuFIj4fP2_yRN1j6WFXRHP29CEl9WkTQexVf8h3QtGx-XUGLVMFqqrSfmI6UuDA13YE8J1gyjrg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \"description\": \"ATHENS Desk - Updated Description 0\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0/companies(162915c7-5408-f011-9af6-6045bde9c6b1)/items(11f0b0fa-5408-f011-9af6-6045bde9c6b1)",
+					"protocol": "https",
+					"host": [
+						"api",
+						"businesscentral",
+						"dynamics",
+						"com"
+					],
+					"path": [
+						"v2.0",
+						"23a0c336-e5f0-4bbc-90b2-2899179cbbb5",
+						"ImeshSand",
+						"api",
+						"ImeshNirmal",
+						"app1",
+						"v1.0",
+						"companies(162915c7-5408-f011-9af6-6045bde9c6b1)",
+						"items(11f0b0fa-5408-f011-9af6-6045bde9c6b1)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "https://api.businesscentral.dynamics.com/.default",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.microsoftonline.com/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/oauth2/v2.0/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Business Central Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"description\": \"New ATHENS Desk 1\", \"baseUnitOfMeasure\": \"PCS\", \"unitPrice\": 1200.0 }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0/companies(162915c7-5408-f011-9af6-6045bde9c6b1)/items",
+					"protocol": "https",
+					"host": [
+						"api",
+						"businesscentral",
+						"dynamics",
+						"com"
+					],
+					"path": [
+						"v2.0",
+						"23a0c336-e5f0-4bbc-90b2-2899179cbbb5",
+						"ImeshSand",
+						"api",
+						"ImeshNirmal",
+						"app1",
+						"v1.0",
+						"companies(162915c7-5408-f011-9af6-6045bde9c6b1)",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{vault:authorization-secret}}",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "https://api.businesscentral.dynamics.com/.default",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.microsoftonline.com/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/oauth2/v2.0/token",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Business Central Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "If-Match",
+						"value": "W/\"JzE5OzU0MTA2MDM0OTg4OTAwMDI4MTMxOzAwOyc=\"",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.businesscentral.dynamics.com/v2.0/23a0c336-e5f0-4bbc-90b2-2899179cbbb5/ImeshSand/api/ImeshNirmal/app1/v1.0/companies(162915c7-5408-f011-9af6-6045bde9c6b1)/items(9078a106-5508-f011-9af6-6045bde9c6b1)",
+					"protocol": "https",
+					"host": [
+						"api",
+						"businesscentral",
+						"dynamics",
+						"com"
+					],
+					"path": [
+						"v2.0",
+						"23a0c336-e5f0-4bbc-90b2-2899179cbbb5",
+						"ImeshSand",
+						"api",
+						"ImeshNirmal",
+						"app1",
+						"v1.0",
+						"companies(162915c7-5408-f011-9af6-6045bde9c6b1)",
+						"items(9078a106-5508-f011-9af6-6045bde9c6b1)"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
